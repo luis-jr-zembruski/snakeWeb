@@ -86,4 +86,5 @@ function iniciarJogo() {
   snake.unshift(newHead)
 }
 
+alert('Lets go!')
 let jogo = setInterval(iniciarJogo, 100)
