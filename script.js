@@ -12,14 +12,13 @@ snake[0] = {
 let direction = 'right'
 
 function createFoods() {
-  let x = Math.floor(Math.random() * 15 + 1) * box
-  let y = Math.floor(Math.random() * 15 + 1) * box
+  let x = (y = Math.floor(Math.random() * 15 + 1) * box)
   return { x, y }
 }
 
 let food = createFoods()
 
-function createBG() {
+function createGameBackground() {
   context.fillStyle = 'lightgreen'
   context.fillRect(0, 0, 16 * box, 16 * box)
 }
@@ -72,7 +71,7 @@ function refreshScoreAndDificulty() {
 }
 
 function initGame() {
-  createBG()
+  createGameBackground()
   createSnake()
   drawFood()
   verifyBordersCollisionWithSnake()
