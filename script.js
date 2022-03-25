@@ -2,6 +2,8 @@ let canvas = document.getElementById('snake')
 let context = canvas.getContext('2d')
 let box = 32
 let score = 0
+let level = 300
+let dificulty = 10
 let snake = []
 snake[0] = {
   x: 8 * box,
@@ -9,13 +11,13 @@ snake[0] = {
 }
 let direction = 'right'
 
-let food = createFoods()
-
 function createFoods() {
   let x = Math.floor(Math.random() * 15 + 1) * box
   let y = Math.floor(Math.random() * 15 + 1) * box
   return { x, y }
 }
+
+let food = createFoods()
 
 function createBG() {
   context.fillStyle = 'lightgreen'
@@ -61,12 +63,20 @@ function verifyEndGame() {
   }
 }
 
+function refreshScoreAndDificulty() {
+  score++
+  clearInterval(jogo)
+  level -= dificulty
+  jogo = setInterval(initGame, level)
+  food = createFoods()
+}
+
 function initGame() {
-  verifyBordersCollisionWithSnake()
-  verifyEndGame()
   createBG()
   createSnake()
   drawFood()
+  verifyBordersCollisionWithSnake()
+  verifyEndGame()
 
   let snakeY = snake[0].y
   let snakeX = snake[0].x
@@ -79,8 +89,7 @@ function initGame() {
   if (snakeX != food.x || snakeY != food.y) {
     snake.pop()
   } else {
-    score++
-    food = createFoods()
+    refreshScoreAndDificulty()
   }
 
   let newHead = {
@@ -92,4 +101,4 @@ function initGame() {
 }
 
 alert('Lets go!')
-let jogo = setInterval(initGame, 100)
+let jogo = setInterval(initGame, 300)
