@@ -2,7 +2,7 @@ let canvas = document.getElementById('snake')
 let context = canvas.getContext('2d')
 let box = 32
 let score = 0
-let level = 300
+let timeInitial = 300
 let dificulty = 10
 let snake = []
 snake[0] = {
@@ -66,8 +66,8 @@ function verifyEndGame() {
 function refreshScoreAndDificulty() {
   score++
   clearInterval(jogo)
-  level -= dificulty
-  jogo = setInterval(initGame, level)
+  timeInitial -= dificulty
+  jogo = setInterval(initGame, timeInitial)
   food = createFoods()
 }
 
