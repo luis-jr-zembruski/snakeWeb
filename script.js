@@ -35,15 +35,32 @@ function drawFood() {
   context.fillRect(food.x, food.y, box, box)
 }
 
+function changeDirectionSnakeToLeft() {
+  if (direction != 'right') direction = 'left'
+}
+
+function changeDirectionSnakeToRight() {
+  if (direction != 'left') direction = 'right'
+}
+
+function changeDirectionSnakeToUp() {
+  if (direction != 'down') direction = 'up'
+}
+
+function changeDirectionSnakeToDown() {
+  if (direction != 'up') direction = 'down'
+}
+
+const directions = {
+  37: changeDirectionSnakeToLeft,
+  39: changeDirectionSnakeToRight,
+  38: changeDirectionSnakeToUp,
+  40: changeDirectionSnakeToDown
+}
+
 document.addEventListener('keydown', getKeyPressHandler)
 function getKeyPressHandler(event) {
-  if (event.keyCode == 37 && direction != 'right') direction = 'left'
-
-  if (event.keyCode == 38 && direction != 'down') direction = 'up'
-
-  if (event.keyCode == 39 && direction != 'left') direction = 'right'
-
-  if (event.keyCode == 40 && direction != 'up') direction = 'down'
+  directions[event.keyCode]()
 }
 
 function verifyBordersCollisionWithSnake() {
