@@ -73,18 +73,21 @@ function verifyBordersCollisionWithSnake() {
 function verifyEndGame() {
   for (i = 1; i < snake.length; i++) {
     if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
-      clearInterval(jogo)
+      clearInterval(game)
       alert('Game Over!!! Score: ' + score)
     }
   }
 }
 
-function refreshScoreAndDificulty() {
+function refreshScore() {
   score++
-  clearInterval(jogo)
-  timeInitial -= dificulty
-  jogo = setInterval(initGame, timeInitial)
   food = createFoods()
+}
+
+function refreshDificulty() {
+  clearInterval(game)
+  timeInitial -= dificulty
+  game = setInterval(initGame, timeInitial)
 }
 
 function initGame() {
@@ -105,7 +108,8 @@ function initGame() {
   if (snakeX != food.x || snakeY != food.y) {
     snake.pop()
   } else {
-    refreshScoreAndDificulty()
+    refreshScore()
+    refreshDificulty()
   }
 
   let newHead = {
@@ -117,4 +121,4 @@ function initGame() {
 }
 
 alert('Lets go!')
-let jogo = setInterval(initGame, 300)
+let game = setInterval(initGame, timeInitial)
