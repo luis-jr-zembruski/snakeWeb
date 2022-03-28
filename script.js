@@ -51,7 +51,7 @@ function changeDirectionSnakeToDown() {
   if (direction != 'up') direction = 'down'
 }
 
-const directions = {
+const directionsStrategy = {
   37: changeDirectionSnakeToLeft,
   39: changeDirectionSnakeToRight,
   38: changeDirectionSnakeToUp,
@@ -60,7 +60,7 @@ const directions = {
 
 document.addEventListener('keydown', getKeyPressHandler)
 function getKeyPressHandler(event) {
-  directions[event.keyCode]()
+  directionsStrategy[event.keyCode]()
 }
 
 function verifyBordersCollisionWithSnake() {
