@@ -52,15 +52,15 @@ function changeDirectionSnakeToDown() {
 }
 
 const directionsStrategy = {
-  37: changeDirectionSnakeToLeft,
-  39: changeDirectionSnakeToRight,
-  38: changeDirectionSnakeToUp,
-  40: changeDirectionSnakeToDown
+  "ArrowLeft": changeDirectionSnakeToLeft,
+  "ArrowRight": changeDirectionSnakeToRight,
+  "ArrowUp": changeDirectionSnakeToUp,
+  "ArrowDown": changeDirectionSnakeToDown
 }
 
 document.addEventListener('keydown', getKeyPressHandler)
 function getKeyPressHandler(event) {
-  directionsStrategy[event.keyCode]()
+  directionsStrategy[event.key]()
 }
 
 function verifyBordersCollisionWithSnake() {
