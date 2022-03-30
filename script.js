@@ -90,6 +90,45 @@ function refreshDificulty() {
   game = setInterval(initGame, timeInitial)
 }
 
+function createMovimentationRight(snake) {
+  let newSnake = {
+    x: (snake.x += box),
+    y: snake.y
+  }
+  return newSnake
+}
+
+function createMovimentationLeft(snake) {
+  let newSnake = {
+    x: (snake.x -= box),
+    y: snake.y
+  }
+  return newSnake
+}
+
+function createMovimentationUp(snake) {
+  let newSnake = {
+    x: snake.x,
+    y: (snake.y -= box)
+  }
+  return newSnake
+}
+
+function createMovimentationDown(snake) {
+  let newSnake = {
+    x: snake.x,
+    y: (snake.y += box)
+  }
+  return newSnake
+}
+
+const movimentationStrategy = {
+  "right": createMovimentationRight,
+  "left": createMovimentationLeft,
+  "up": createMovimentationUp,
+  "down": createMovimentationDown
+}
+
 function initGame() {
   createGameBackground()
   createSnake()
@@ -97,15 +136,14 @@ function initGame() {
   verifyBordersCollisionWithSnake()
   verifyEndGame()
 
-  let snakeY = snake[0].y
-  let snakeX = snake[0].x
+  let newSnake = {
+    x: snake[0].x,
+    y: snake[0].y
+  }
 
-  if (direction == 'right') snakeX += box
-  if (direction == 'left') snakeX -= box
-  if (direction == 'up') snakeY -= box
-  if (direction == 'down') snakeY += box
+  movimentationStrategy[direction](newSnake)
 
-  if (snakeX != food.x || snakeY != food.y) {
+  if (newSnake.x != food.x || newSnake.y != food.y) {
     snake.pop()
   } else {
     refreshScore()
@@ -113,8 +151,8 @@ function initGame() {
   }
 
   let newHead = {
-    x: snakeX,
-    y: snakeY
+    x: newSnake.x,
+    y: newSnake.y
   }
 
   snake.unshift(newHead)
